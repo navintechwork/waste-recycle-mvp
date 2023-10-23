@@ -1,2 +1,55 @@
 <!-- <p>landing-page works!</p> -->
-<h4>Recycling Locator</h4>
+<!-- <h4>Recycling Locator</h4> -->
+
+<h1 style="text-align: center;">Find your sustainable drop off</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div>
+            <h1>Where are you ?</h1>
+        <form class="example-form">
+            <mat-form-field class="example-full-width" appearance="outline" style="width: 70%;">
+              <mat-label>Select Cantons</mat-label>
+              <input type="text"
+                     placeholder="Pick one"
+                     aria-label="Select Cantons"
+                     matInput
+                     [formControl]="myControl"
+                     [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </form>
+          <h1>What goods do you want to recycle?</h1>
+          <!-- <label id="example-radio-group-label">Pick your favorite season</label> -->
+            <mat-radio-group
+            aria-labelledby="example-radio-group-label"
+            class="example-radio-group"
+            [(ngModel)]="favoriteSeason">
+            <mat-radio-button class="example-radio-button" *ngFor="let season of seasons" [value]="season">
+                {{season}}
+            </mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <div class="submit-button">
+            <button mat-raised-button color="primary">Locate Recycle Unit</button>
+        </div>
+        
+            <!-- <div>Your favorite season is: {{favoriteSeason}}</div> -->
+    </div>
+    <div class="col-md-8">
+        <!-- <h1>Find your sustainable drop off</h1> -->
+        
+        <mat-tab-group>
+            <mat-tab label="Map">
+                <div id="map"></div>
+            </mat-tab>
+            <mat-tab label="Table">
+                <h4>Tabular view</h4>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

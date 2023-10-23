@@ -6,18 +6,41 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DefaultModule } from './layouts/default/default.module';
+import {MatTabsModule} from '@angular/material/tabs';
+import { HowToRecycleComponent } from './modules/how-to-recycle/how-to-recycle.component';
+import { AboutUsComponent } from './modules/about-us/about-us.component';
+import { LandingPageComponent } from './modules/landing-page/landing-page.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import {MatRadioModule} from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LandingPageComponent,
+    AboutUsComponent,
+    HowToRecycleComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
-    DefaultModule
+    DefaultModule,
+    MatTabsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatRadioModule,
+    FormsModule,
+    MatButtonModule
   ],
+  exports:[MatTabsModule],
   providers: [],
   bootstrap: [AppComponent]
 })
