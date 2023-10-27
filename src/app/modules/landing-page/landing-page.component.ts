@@ -2153,6 +2153,16 @@ brownIcon = L.icon({
   shadowAnchor: [4, 62],  // the same for the shadow
   popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
+blueIcon = L.icon({
+  iconUrl: '../../../assets/img/leaf-blue.png',
+  shadowUrl: '../../../assets/img/leaf-shadow.png',
+
+  iconSize:     [38, 95], // size of the icon
+  shadowSize:   [50, 64], // size of the shadow
+  iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+  shadowAnchor: [4, 62],  // the same for the shadow
+  popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
   filteredOptions!: Observable<any[]>;
   favoriteSeason!: string;
   seasons: string[] = ['Glass', 'Metal', 'Oil', 'Textile'];
@@ -2201,22 +2211,20 @@ brownIcon = L.icon({
   // 47.3775284,8.4543347
 
   for(let i = 0; i<this.geoLocation.length;i++){
-    let popuptext = `<b>Address : ${this.geoLocation[i].address}</b><br/><b>Recycle Option : ${this.geoLocation[i].glass ? 'Glass' : ''} ${this.geoLocation[i].metal ? 'Metail' : ''} ${this.geoLocation[i].oil ? 'Oil' : ''} ${this.geoLocation[i].textile ? 'Textile' : ''}</b>`;
-    // debugger;
-    // if(this.geoLocation[i].glass === true){
-    //   L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: this.brownIcon}).addTo(map).bindPopup(popuptext);
-    // }
-    // if(this.geoLocation[i].metal === true){
-    //   L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: this.greenIcon}).addTo(map).bindPopup(popuptext);
-    // }
-    // if(this.geoLocation[i].oil === true){
-    //   L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: this.yellowIcon}).addTo(map).bindPopup(popuptext);
-    // }
-    // if(this.geoLocation[i].textile === true){
-    //   L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: this.redIcon}).addTo(map).bindPopup(popuptext);
-    // }
+    let tempIcon:any;
+    let tempRecycleUnitCount = 0;
 
-    let marker = L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: this.brownIcon}).bindPopup(popuptext);
+    if(this.geoLocation[i].glass){tempRecycleUnitCount++}
+    if(this.geoLocation[i].metal){tempRecycleUnitCount++}
+    if(this.geoLocation[i].oil){tempRecycleUnitCount++}
+    if(this.geoLocation[i].textile){tempRecycleUnitCount++}
+
+    if(tempRecycleUnitCount === 4){tempIcon = this.redIcon}
+    if(tempRecycleUnitCount === 3){tempIcon = this.yellowIcon}
+    if(tempRecycleUnitCount === 2){tempIcon = this.blueIcon}
+    let popuptext = `<b>Address : ${this.geoLocation[i].address}</b><br/><b>Recycle Option : ${this.geoLocation[i].glass ? 'Glass' : ''} ${this.geoLocation[i].metal ? 'Metail' : ''} ${this.geoLocation[i].oil ? 'Oil' : ''} ${this.geoLocation[i].textile ? 'Textile' : ''}</b>`;
+    
+    let marker = L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: tempIcon}).bindPopup(popuptext);
 
     this.markers.addLayer(marker);
   }
@@ -2258,7 +2266,7 @@ searchRecycleUnit(){
 
               this.markers = new L.FeatureGroup();
               let popuptext = `<b>Address : ${element.address}</b><br/><b>Recycle Option : ${element.glass ? 'Glass' : ''} ${element.metal ? 'Metail' : ''} ${element.oil ? 'Oil' : ''} ${element.textile ? 'Textile' : ''}</b>`;
-              let marker = L.marker([Number(element.geolocation.lat), Number(element.geolocation.long)], {icon: this.brownIcon}).bindPopup(popuptext);
+              let marker = L.marker([Number(element.geolocation.lat), Number(element.geolocation.long)], {icon: this.greenIcon}).bindPopup(popuptext);
 
               this.markers.addLayer(marker);
               this.map.addLayer(this.markers);
@@ -2281,9 +2289,20 @@ showAllRecycleUnit(){
   this.markers = new L.FeatureGroup();
 
   for(let i = 0; i<this.geoLocation.length;i++){
+    let tempIcon:any;
+    let tempRecycleUnitCount = 0;
+
+    if(this.geoLocation[i].glass){tempRecycleUnitCount++}
+    if(this.geoLocation[i].metal){tempRecycleUnitCount++}
+    if(this.geoLocation[i].oil){tempRecycleUnitCount++}
+    if(this.geoLocation[i].textile){tempRecycleUnitCount++}
+
+    if(tempRecycleUnitCount === 4){tempIcon = this.redIcon}
+    if(tempRecycleUnitCount === 3){tempIcon = this.yellowIcon}
+    if(tempRecycleUnitCount === 2){tempIcon = this.blueIcon}
     let popuptext = `<b>Address : ${this.geoLocation[i].address}</b><br/><b>Recycle Option : ${this.geoLocation[i].glass ? 'Glass' : ''} ${this.geoLocation[i].metal ? 'Metail' : ''} ${this.geoLocation[i].oil ? 'Oil' : ''} ${this.geoLocation[i].textile ? 'Textile' : ''}</b>`;
     
-    let marker = L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: this.brownIcon}).bindPopup(popuptext);
+    let marker = L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: tempIcon}).bindPopup(popuptext);
 
     this.markers.addLayer(marker);
   }
