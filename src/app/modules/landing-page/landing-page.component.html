@@ -7,22 +7,27 @@
     <div class="col-md-4">
         <div>
             <h1>Where are you ?</h1>
-        <form class="example-form">
-            <mat-form-field class="example-full-width" appearance="outline" style="width: 70%;">
-              <mat-label>Select Cantons</mat-label>
-              <input type="text"
-                     placeholder="Pick one"
-                     aria-label="Select Cantons"
-                     matInput
-                     [formControl]="myControl"
-                     [matAutocomplete]="auto">
-              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-          </form>
+            <div style="display: flex;">
+              <form class="example-form" style="width: 70%;">
+                <mat-form-field class="example-full-width" appearance="outline" style="width: 90%;">
+                  <mat-label>Select Cantons</mat-label>
+                  <input type="text"
+                         placeholder="Pick one"
+                         aria-label="Select Cantons"
+                         matInput
+                         [(ngModel)]="selectedAutoComplete"
+                         [formControl]="myControl"
+                         [matAutocomplete]="auto">
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="onSelectionChange($event)">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option.address">
+                      {{option?.address}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </form>
+              <button mat-raised-button color="primary" (click)="showAllRecycleUnit()">Show All</button>
+            </div>
+        
           <h1>What goods do you want to recycle?</h1>
           <!-- <label id="example-radio-group-label">Pick your favorite season</label> -->
             <mat-radio-group
@@ -35,7 +40,7 @@
             </mat-radio-group>
         </div>
         <div class="submit-button">
-            <button mat-raised-button color="primary">Locate Recycle Unit</button>
+            <button mat-raised-button color="primary" (click)="searchRecycleUnit()">Locate Recycle Unit</button>
         </div>
         
             <!-- <div>Your favorite season is: {{favoriteSeason}}</div> -->
