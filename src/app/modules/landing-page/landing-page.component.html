@@ -90,19 +90,31 @@
                       </ng-container>
                       <ng-container matColumnDef="glass">
                         <th mat-header-cell *matHeaderCellDef> Glass </th>
-                        <td mat-cell *matCellDef="let element"> {{element.glass}} </td>
+                        <td mat-cell *matCellDef="let element">
+                          <i class="fa-solid fa-check green" *ngIf="element.glass"></i>
+                          <i class="fa-solid fa-xmark red" *ngIf="!element.glass"></i>
+                        </td>
                       </ng-container>
                       <ng-container matColumnDef="metal">
                         <th mat-header-cell *matHeaderCellDef> Metal </th>
-                        <td mat-cell *matCellDef="let element"> {{element.metal}} </td>
+                        <td mat-cell *matCellDef="let element">
+                          <i class="fa-solid fa-check green" *ngIf="element.metal"></i>
+                          <i class="fa-solid fa-xmark red" *ngIf="!element.metal"></i>
+                        </td>
                       </ng-container>
                       <ng-container matColumnDef="oil">
                         <th mat-header-cell *matHeaderCellDef> Oil </th>
-                        <td mat-cell *matCellDef="let element"> {{element.oil}} </td>
+                        <td mat-cell *matCellDef="let element">
+                          <i class="fa-solid fa-check green" *ngIf="element.oil"></i>
+                          <i class="fa-solid fa-xmark red" *ngIf="!element.oil"></i>
+                        </td>
                       </ng-container>
                       <ng-container matColumnDef="textile">
                         <th mat-header-cell *matHeaderCellDef> Textile </th>
-                        <td mat-cell *matCellDef="let element"> {{element.textile}} </td>
+                        <td mat-cell *matCellDef="let element">
+                          <i class="fa-solid fa-check green" *ngIf="element.textile"></i>
+                          <i class="fa-solid fa-xmark red" *ngIf="!element.textile"></i>
+                        </td>
                       </ng-container>
                       <ng-container matColumnDef="geolocation">
                         <th mat-header-cell *matHeaderCellDef> Geolocation </th>
