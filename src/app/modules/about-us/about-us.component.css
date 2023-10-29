@@ -1,0 +1,16 @@
+/* .recycle-images{
+    background: url(../../../assets/img/recycle-two.jpg);
+} */
+.recycle-images span img{
+    width: 100%;
+    margin-bottom: 20px;
+}
+.content-wrapper{
+    padding: 40px 100px;
+}
+.content-wrapper h4{
+    color: #3f51b5;
+}
+.content-wrapper .sub-heading{
+    margin-top: 30px;
+}
