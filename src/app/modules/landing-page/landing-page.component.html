@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-4">
         <div>
-            <h1>Where are you ?</h1>
+            <h1>Select Location</h1>
             <div style="display: flex;">
               <form class="example-form" style="width: 70%;">
                 <mat-form-field class="example-full-width" appearance="outline" style="width: 90%;">
@@ -58,6 +58,14 @@
         <mat-tab-group>
             <mat-tab label="Map">
                 <div id="map"></div>
+                <div class="legend">
+                  <ul style="display: flex;justify-content:space-around;">
+                    <li><span style="background: #B2E160;"></span>1 Recycle Product Option</li>
+                    <li><span style="background: #D5BDFF;"></span>2 Recycle Product Option</li>
+                    <li><span style="background: #F9C248;"></span>3 Recycle Product Option</li>
+                    <li><span style="background: #EA5A76;"></span>All 4 Recycle Product Option</li>
+                  </ul>
+                </div>
             </mat-tab>
             <mat-tab label="Table">
                 <h4>Tabular view</h4>
@@ -139,5 +147,13 @@
                   </div>
             </mat-tab>
         </mat-tab-group>
+        <!-- <div class="legend">
+          <ul style="display: flex;">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+          </ul>
+        </div> -->
     </div>
 </div>
