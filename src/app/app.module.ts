@@ -21,6 +21,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { JsonService } from './shared/service/common.service';
 import { HttpClientModule } from '@angular/common/http';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,9 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
-    HttpClientModule 
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
   ],
   exports:[MatTabsModule],
   providers: [JsonService],

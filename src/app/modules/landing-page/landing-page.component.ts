@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import * as L from 'leaflet';
 import { Observable, startWith,map } from 'rxjs';
 
@@ -2171,7 +2171,14 @@ blueIcon = L.icon({
   searchtext = '';
   selectedAutoComplete = '';
 
-  constructor(private json: JsonService) { 
+  toppings = this._formBuilder.group({
+   glass: false,
+   metal: false,
+   oil: false,
+   textile: false,
+ });
+
+  constructor(private json: JsonService,private _formBuilder: FormBuilder) { 
     // json.getData(')').subscribe((result)=> {
     //   console.log('Result---->',result)
     // });
@@ -2222,6 +2229,7 @@ blueIcon = L.icon({
     if(tempRecycleUnitCount === 4){tempIcon = this.redIcon}
     if(tempRecycleUnitCount === 3){tempIcon = this.yellowIcon}
     if(tempRecycleUnitCount === 2){tempIcon = this.blueIcon}
+    if(tempRecycleUnitCount === 1){tempIcon = this.greenIcon}
     let popuptext = `<b>Address : ${this.geoLocation[i].address}</b><br/><b>Recycle Option : ${this.geoLocation[i].glass ? 'Glass' : ''} ${this.geoLocation[i].metal ? 'Metail' : ''} ${this.geoLocation[i].oil ? 'Oil' : ''} ${this.geoLocation[i].textile ? 'Textile' : ''}</b>`;
     
     let marker = L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: tempIcon}).bindPopup(popuptext);
@@ -2256,32 +2264,78 @@ onSelectionChange(event:any){
 }
 
 searchRecycleUnit(){
-  this.geoLocation.filter((element:any) => {
-    for (var property in element) {
-        if (element.hasOwnProperty(property)) {
-            if(element[property] == this.searchtext) {
-                // return true;
-              this.map.removeLayer(this.markers);
-              console.log('Element selected-->',element);
-
-              this.markers = new L.FeatureGroup();
-              let popuptext = `<b>Address : ${element.address}</b><br/><b>Recycle Option : ${element.glass ? 'Glass' : ''} ${element.metal ? 'Metail' : ''} ${element.oil ? 'Oil' : ''} ${element.textile ? 'Textile' : ''}</b>`;
-              let marker = L.marker([Number(element.geolocation.lat), Number(element.geolocation.long)], {icon: this.greenIcon}).bindPopup(popuptext);
-
-              this.markers.addLayer(marker);
-              this.map.addLayer(this.markers);
-
-              this.map.setView([Number(element.geolocation.lat), Number(element.geolocation.long)], 14)
-              this.selectedAutoComplete = '';
-
-              let tempArray:any = [];
-              tempArray.push(element);
-              this.dataSourceTwo = new MatTableDataSource<PeriodicElementTwo>(tempArray);
-              this.dataSourceTwo.paginator = this.paginator;
+   console.log('Checkbox-->',this.toppings);
+   if(this.toppings.value.glass || this.toppings.value.metal || this.toppings.value.oil || this.toppings.value.textile){
+      let checkboxArray:any = [];
+      if(this.toppings.value.glass){checkboxArray.push('glass')}
+      if(this.toppings.value.metal){checkboxArray.push('metal')}
+      if(this.toppings.value.oil){checkboxArray.push('oil')}
+      if(this.toppings.value.textile){checkboxArray.push('textile')}
+      let tempArray:any = [];
+      this.geoLocation.filter((element:any) => {
+         // if(checkboxArray.includes(element[property]))
+         for(let i=0;i<checkboxArray.length;i++){
+            if(element[checkboxArray[i]] === true){
+               tempArray.push(element);
+               break;
             }
-        }
-    }
-  });
+         }
+      });
+      this.map.removeLayer(this.markers);
+      this.markers = new L.FeatureGroup();
+
+      for(let i = 0; i<tempArray.length;i++){
+         let tempIcon:any;
+         let tempRecycleUnitCount = 0;
+
+         if(tempArray[i].glass){tempRecycleUnitCount++}
+         if(tempArray[i].metal){tempRecycleUnitCount++}
+         if(tempArray[i].oil){tempRecycleUnitCount++}
+         if(tempArray[i].textile){tempRecycleUnitCount++}
+
+         if(tempRecycleUnitCount === 4){tempIcon = this.redIcon}
+         if(tempRecycleUnitCount === 3){tempIcon = this.yellowIcon}
+         if(tempRecycleUnitCount === 2){tempIcon = this.blueIcon}
+         if(tempRecycleUnitCount === 1){tempIcon = this.greenIcon}
+         let popuptext = `<b>Address : ${tempArray[i].address}</b><br/><b>Recycle Option : ${tempArray[i].glass ? 'Glass' : ''} ${tempArray[i].metal ? 'Metail' : ''} ${tempArray[i].oil ? 'Oil' : ''} ${tempArray[i].textile ? 'Textile' : ''}</b>`;
+         
+         let marker = L.marker([Number(tempArray[i].geolocation.lat), Number(tempArray[i].geolocation.long)], {icon: tempIcon}).bindPopup(popuptext);
+
+         this.markers.addLayer(marker);
+      }
+      this.map.addLayer(this.markers);
+      this.dataSourceTwo = new MatTableDataSource<PeriodicElementTwo>(tempArray);
+      this.dataSourceTwo.paginator = this.paginator;
+   }
+   else{
+      this.geoLocation.filter((element:any) => {
+         for (var property in element) {
+             if (element.hasOwnProperty(property)) {
+                 if(element[property] == this.searchtext) {
+                     // return true;
+                   this.map.removeLayer(this.markers);
+                   console.log('Element selected-->',element);
+     
+                   this.markers = new L.FeatureGroup();
+                   let popuptext = `<b>Address : ${element.address}</b><br/><b>Recycle Option : ${element.glass ? 'Glass' : ''} ${element.metal ? 'Metail' : ''} ${element.oil ? 'Oil' : ''} ${element.textile ? 'Textile' : ''}</b>`;
+                   let marker = L.marker([Number(element.geolocation.lat), Number(element.geolocation.long)], {icon: this.greenIcon}).bindPopup(popuptext);
+     
+                   this.markers.addLayer(marker);
+                   this.map.addLayer(this.markers);
+     
+                   this.map.setView([Number(element.geolocation.lat), Number(element.geolocation.long)], 14)
+                   this.selectedAutoComplete = '';
+     
+                   let tempArray:any = [];
+                   tempArray.push(element);
+                   this.dataSourceTwo = new MatTableDataSource<PeriodicElementTwo>(tempArray);
+                   this.dataSourceTwo.paginator = this.paginator;
+                 }
+             }
+         }
+       });
+   }
+  
 }
 
 showAllRecycleUnit(){
@@ -2300,6 +2354,7 @@ showAllRecycleUnit(){
     if(tempRecycleUnitCount === 4){tempIcon = this.redIcon}
     if(tempRecycleUnitCount === 3){tempIcon = this.yellowIcon}
     if(tempRecycleUnitCount === 2){tempIcon = this.blueIcon}
+    if(tempRecycleUnitCount === 1){tempIcon = this.greenIcon}
     let popuptext = `<b>Address : ${this.geoLocation[i].address}</b><br/><b>Recycle Option : ${this.geoLocation[i].glass ? 'Glass' : ''} ${this.geoLocation[i].metal ? 'Metail' : ''} ${this.geoLocation[i].oil ? 'Oil' : ''} ${this.geoLocation[i].textile ? 'Textile' : ''}</b>`;
     
     let marker = L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: tempIcon}).bindPopup(popuptext);
