@@ -2230,7 +2230,7 @@ blueIcon = L.icon({
     if(tempRecycleUnitCount === 3){tempIcon = this.yellowIcon}
     if(tempRecycleUnitCount === 2){tempIcon = this.blueIcon}
     if(tempRecycleUnitCount === 1){tempIcon = this.greenIcon}
-    let popuptext = `<b>Address : ${this.geoLocation[i].address}</b><br/><b>Recycle Option : ${this.geoLocation[i].glass ? 'Glass' : ''} ${this.geoLocation[i].metal ? 'Metail' : ''} ${this.geoLocation[i].oil ? 'Oil' : ''} ${this.geoLocation[i].textile ? 'Textile' : ''}</b>`;
+    let popuptext = `<b>Address : ${this.geoLocation[i].address}</b><br/><b>Recycle Option : ${this.geoLocation[i].glass ? 'Glass,' : ''} ${this.geoLocation[i].metal ? 'Metail,' : ''} ${this.geoLocation[i].oil ? 'Oil,' : ''} ${this.geoLocation[i].textile ? 'Textile,' : ''}</b>`;
     
     let marker = L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: tempIcon}).bindPopup(popuptext);
 
@@ -2297,7 +2297,7 @@ searchRecycleUnit(){
          if(tempRecycleUnitCount === 3){tempIcon = this.yellowIcon}
          if(tempRecycleUnitCount === 2){tempIcon = this.blueIcon}
          if(tempRecycleUnitCount === 1){tempIcon = this.greenIcon}
-         let popuptext = `<b>Address : ${tempArray[i].address}</b><br/><b>Recycle Option : ${tempArray[i].glass ? 'Glass' : ''} ${tempArray[i].metal ? 'Metail' : ''} ${tempArray[i].oil ? 'Oil' : ''} ${tempArray[i].textile ? 'Textile' : ''}</b>`;
+         let popuptext = `<b>Address : ${this.geoLocation[i].address}</b><br/><b>Recycle Option : ${this.geoLocation[i].glass ? 'Glass,' : ''} ${this.geoLocation[i].metal ? 'Metail,' : ''} ${this.geoLocation[i].oil ? 'Oil,' : ''} ${this.geoLocation[i].textile ? 'Textile,' : ''}</b>`;
          
          let marker = L.marker([Number(tempArray[i].geolocation.lat), Number(tempArray[i].geolocation.long)], {icon: tempIcon}).bindPopup(popuptext);
 
@@ -2317,7 +2317,7 @@ searchRecycleUnit(){
                    console.log('Element selected-->',element);
      
                    this.markers = new L.FeatureGroup();
-                   let popuptext = `<b>Address : ${element.address}</b><br/><b>Recycle Option : ${element.glass ? 'Glass' : ''} ${element.metal ? 'Metail' : ''} ${element.oil ? 'Oil' : ''} ${element.textile ? 'Textile' : ''}</b>`;
+                   let popuptext = `<b>Address : ${element.address}</b><br/><b>Recycle Option : ${element.glass ? 'Glass,' : ''} ${element.metal ? 'Metail,' : ''} ${element.oil ? 'Oil,' : ''} ${element.textile ? 'Textile,' : ''}</b>`;
                    let marker = L.marker([Number(element.geolocation.lat), Number(element.geolocation.long)], {icon: this.greenIcon}).bindPopup(popuptext);
      
                    this.markers.addLayer(marker);
@@ -2355,7 +2355,7 @@ showAllRecycleUnit(){
     if(tempRecycleUnitCount === 3){tempIcon = this.yellowIcon}
     if(tempRecycleUnitCount === 2){tempIcon = this.blueIcon}
     if(tempRecycleUnitCount === 1){tempIcon = this.greenIcon}
-    let popuptext = `<b>Address : ${this.geoLocation[i].address}</b><br/><b>Recycle Option : ${this.geoLocation[i].glass ? 'Glass' : ''} ${this.geoLocation[i].metal ? 'Metail' : ''} ${this.geoLocation[i].oil ? 'Oil' : ''} ${this.geoLocation[i].textile ? 'Textile' : ''}</b>`;
+    let popuptext = `<b>Address : ${this.geoLocation[i].address}</b><br/><b>Recycle Option : ${this.geoLocation[i].glass ? 'Glass,' : ''} ${this.geoLocation[i].metal ? 'Metail,' : ''} ${this.geoLocation[i].oil ? 'Oil,' : ''} ${this.geoLocation[i].textile ? 'Textile,' : ''}</b>`;
     
     let marker = L.marker([Number(this.geoLocation[i].geolocation.lat), Number(this.geoLocation[i].geolocation.long)], {icon: tempIcon}).bindPopup(popuptext);
 
